@@ -6,6 +6,7 @@ using MLAPI;
 public class BasicInputs : NetworkBehaviour
 {
     public float movementSpeed = 5f;
+    public float rotateSpeed = 25f;
     public Transform camT;
     CharacterController mpCharController;
 
@@ -36,6 +37,7 @@ public class BasicInputs : NetworkBehaviour
         if (IsLocalPlayer)
         {
             MPMovePlayer();
+            MPRotatePlayer();
         }
         
     }
@@ -46,5 +48,14 @@ public class BasicInputs : NetworkBehaviour
         Vector3 moveVect = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         mpCharController.SimpleMove(moveVect * movementSpeed);
 
+    }
+
+    //Movement controls are NOT linked to the camera's position!
+    void MPRotatePlayer()
+    {
+        if (Input.GetKey(KeyCode.Q))
+            transform.Rotate(-Vector3.up * rotateSpeed * Time.deltaTime);
+        else if (Input.GetKey(KeyCode.E))
+            transform.Rotate(Vector3.up * rotateSpeed * Time.deltaTime);
     }
 }
