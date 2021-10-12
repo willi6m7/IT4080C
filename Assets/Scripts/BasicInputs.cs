@@ -15,7 +15,7 @@ public class BasicInputs : NetworkBehaviour
         mpCharController = GetComponent<CharacterController>();
 
         //Color change check
-        if (IsLocalPlayer)
+        if (IsOwner)
         {
             GetComponent<MeshRenderer>().material.color = Color.red;
         }
@@ -25,7 +25,7 @@ public class BasicInputs : NetworkBehaviour
         }
 
         //disable other cameras
-        if(!IsLocalPlayer)
+        if(!IsOwner)
         {
             camT.GetComponent<Camera>().enabled = false;
         }
@@ -34,7 +34,7 @@ public class BasicInputs : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsLocalPlayer)
+        if (IsOwner)
         {
             MPMovePlayer();
             MPRotatePlayer();

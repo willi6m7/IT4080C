@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/IT4080C.unity
+    path: Assets/Scenes/MenuScene.unity
+    guid: ce4e04a5db108c14aa6415b75d52324b
+  - enabled: 1
+    path: Assets/Scenes/LobbyScene.unity
+    guid: e3fe33597d201fe49b4aeab7dd52cf2f
+  - enabled: 1
+    path: Assets/Scenes/IT4080C.unity
     guid: f5cfabc9c1bf0da44b354793d6c93487
   m_configObjects: {}

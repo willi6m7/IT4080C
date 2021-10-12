@@ -207,7 +207,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 841767521}
-        m_TargetAssemblyTypeName: MPMenuScript, Assembly-CSharp
+        m_TargetAssemblyTypeName: MPMenuSceneScript, Assembly-CSharp
         m_MethodName: OnClientButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -490,6 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718433281}
   - component: {fileID: 718433282}
+  - component: {fileID: 718433283}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -528,10 +529,11 @@ MonoBehaviour:
   LogLevel: 1
   NetworkConfig:
     ProtocolVersion: 0
-    NetworkTransport: {fileID: 0}
+    NetworkTransport: {fileID: 718433283}
     RegisteredScenes:
     - MenuScene
-    - MenuScene
+    - LobbyScene
+    - IT4080C
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 1972940327763034589, guid: 4c768f6c2fff28941aec6fd89cdf4e23, type: 3}
@@ -540,7 +542,7 @@ MonoBehaviour:
       PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
-    CreatePlayerPrefab: 1
+    CreatePlayerPrefab: 0
     ReceiveTickrate: 64
     NetworkTickIntervalSec: 0.05
     MaxReceiveEventsPerTickRate: 500
@@ -566,6 +568,31 @@ MonoBehaviour:
     version: 1
     00000000:
       type: {class: , ns: , asm: }
+--- !u!114 &718433283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718433280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b84c2d8dfe509a34fb59e2b81f8e1319, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MessageBufferSize: 5120
+  MaxConnections: 100
+  MaxSentMessageQueueSize: 128
+  ConnectAddress: 127.0.0.1
+  ConnectPort: 7777
+  ServerListenPort: 7777
+  ServerWebsocketListenPort: 8887
+  SupportWebsocket: 0
+  Channels: []
+  UseMLAPIRelay: 0
+  MLAPIRelayAddress: 184.72.104.138
+  MLAPIRelayPort: 8888
+  MessageSendMode: 0
 --- !u!1 &834902013
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,7 +677,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 841767521}
-        m_TargetAssemblyTypeName: MPMenuScript, Assembly-CSharp
+        m_TargetAssemblyTypeName: MPMenuSceneScript, Assembly-CSharp
         m_MethodName: OnHostButtonClicked
         m_Mode: 1
         m_Arguments:
@@ -728,10 +755,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 841767520}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b3ed0da89bc6b44f84d528abb92b0d1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3647bc8343fb80d4e95b59a3a4afbf05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startMenu: {fileID: 841767520}
+  playerName: {fileID: 1416225513}
 --- !u!114 &841767522
 MonoBehaviour:
   m_ObjectHideFlags: 0
