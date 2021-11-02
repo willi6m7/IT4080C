@@ -16,6 +16,9 @@ public class MPLobbyScript : NetworkBehaviour
     [SerializeField] private Button startButton;
 
     private NetworkList<MPPlayerInfo> nwPlayers = new NetworkList<MPPlayerInfo>();
+
+    [SerializeField] private GameObject chatPrefab;
+
     void Start()
     {
         if (IsOwner)
@@ -145,12 +148,23 @@ public class MPLobbyScript : NetworkBehaviour
 
         foreach (MPPlayerInfo tmpClient in nwPlayers)
         {
+
+            //spawn location randomizer
+            //selects a random spawn block to spawn on - does NOT create a spawn block, only chooses an existing one.
             UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
             int index = UnityEngine.Random.Range(0, spawnPoints.Length);
             GameObject currentPoint = spawnPoints[index];
+
+            //spawn player
             GameObject playerSpawn = Instantiate(playerPrefab, currentPoint.transform.position, Quaternion.identity);
             playerSpawn.GetComponent<NetworkObject>().SpawnWithOwnership(tmpClient.networkClientId);
             Debug.Log("Player Spawned For: " + tmpClient.networkPlayerName);
+
+            //spawn chat
+            GameObject chatUISpawn = Instantiate(chatPrefab);
+            chatUISpawn.GetComponent<NetworkObject>().SpawnWithOwnership(tmpClient.networkClientId);
+            chatUISpawn.GetComponent<MP_ChatUIScript>().chatPlayers = nwPlayers;
+            Debug.Log("Chat Spawned For: " + tmpClient.networkPlayerName);
         }
     }
     

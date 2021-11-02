@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -26,7 +26,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -35,7 +35,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
-    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <NoConfig>true</NoConfig>
@@ -53,18 +53,16 @@
     <UnityVersion>2020.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Assets\Scripts\BasicInputs.cs" />
     <Compile Include="Assets\ParrelSync\Examples\CustomArgumentExample.cs" />
     <Compile Include="Assets\Scripts\MPMenuScript.cs" />
+    <Compile Include="Assets\Scripts\LobbyPlayerScript.cs" />
     <Compile Include="Assets\Scripts\MPBulletSpawner.cs" />
     <Compile Include="Assets\Scripts\Hi.cs" />
     <Compile Include="Assets\Scripts\MPMenuSceneScript.cs" />
-    <Compile Include="Assets\Scripts\LobbyPlayerScript.cs" />
     <Compile Include="Assets\Scripts\MPLobbyScript.cs" />
     <Compile Include="Assets\Scripts\MPPlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\MP_ChatUIScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ParrelSync\VERSION.txt" />

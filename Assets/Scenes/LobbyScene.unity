@@ -1355,6 +1355,7 @@ MonoBehaviour:
   - {fileID: 2069253502}
   playerPrefab: {fileID: 1972940327763034589, guid: 4c768f6c2fff28941aec6fd89cdf4e23, type: 3}
   startButton: {fileID: 966156428}
+  chatPrefab: {fileID: 646961077066313953, guid: 8ca871a9f711b184fa93ba20e2ca7aaa, type: 3}
 --- !u!1 &1995093009
 GameObject:
   m_ObjectHideFlags: 0
