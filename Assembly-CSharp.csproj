@@ -59,10 +59,12 @@
     <Compile Include="Assets\Scripts\LobbyPlayerScript.cs" />
     <Compile Include="Assets\Scripts\MPBulletSpawner.cs" />
     <Compile Include="Assets\Scripts\Hi.cs" />
+    <Compile Include="Assets\Scripts\MP_ChatUIScript.cs" />
     <Compile Include="Assets\Scripts\MPMenuSceneScript.cs" />
     <Compile Include="Assets\Scripts\MPLobbyScript.cs" />
     <Compile Include="Assets\Scripts\MPPlayerInfo.cs" />
-    <Compile Include="Assets\Scripts\MP_ChatUIScript.cs" />
+    <Compile Include="Assets\Scripts\MPPlayerAttributes.cs" />
+    <Compile Include="Assets\Scripts\MPDestroyObjectOnTouch.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\ParrelSync\VERSION.txt" />

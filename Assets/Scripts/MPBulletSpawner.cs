@@ -13,8 +13,9 @@ public class MPBulletSpawner : NetworkBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Fire1") && IsLocalPlayer)
+        if (Input.GetButtonDown("Fire1") && IsOwner)
         {
+            Debug.Log("Fired Weapon! 2");
             FireServerRpc();
         }
     }
