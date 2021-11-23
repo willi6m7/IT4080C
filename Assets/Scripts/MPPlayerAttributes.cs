@@ -1,6 +1,7 @@
 using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,26 +13,49 @@ public class MPPlayerAttributes : NetworkBehaviour
     public Slider hpBar;
 
     private float maxHp = 100f;
-    private float damageValue = 20f;
+    private float damageValue = 15f;
     private float healValue = 20f;
     private float damageMultiplier = 2f;
 
-    private NetworkVariableFloat currentHp = new NetworkVariableFloat(100f); 
+    private NetworkVariableFloat currentHp = new NetworkVariableFloat(100f);
+
+    public NetworkVariableInt kills = new NetworkVariableInt(0);
+    public NetworkVariableInt deaths = new NetworkVariableInt(0);
 
     // Update is called once per frame
     void Update()
     {
         hpBar.value = currentHp.Value / maxHp;
+        if (currentHp.Value <= 0)
+        {
+            RespawnPlayerServerRpc();
+            ResetPlayerClientRpc();
+            if (IsOwner)
+            {
+                Debug.Log("Dead!");
+            }
+
+        }
     }
 
     //On collision
     public void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Bullet") && IsOwner)
+        if (collision.gameObject.CompareTag("Bullet") && IsOwner)
         {
-            Debug.Log("Hit!");
-            TakeDamageServerRpc(damageValue);
-            Destroy(collision.gameObject);
+            if (collision.gameObject.GetComponent<MP_BulletScript>().spawnPlayerId != NetworkManager.Singleton.LocalClientId)
+            {
+                Debug.Log("Hit!");
+
+                if (currentHp.Value - damageValue < 0)
+                {
+                    IncreaseKillCountServerRpc(collision.gameObject.GetComponent<MP_BulletScript>().spawnPlayerId);
+                }
+
+                TakeDamageServerRpc(damageValue);
+                Destroy(collision.gameObject);
+            }
+
         }
         else if (collision.gameObject.CompareTag("Medkit") && IsOwner)
         {
@@ -46,13 +70,13 @@ public class MPPlayerAttributes : NetworkBehaviour
     }
 
     [ServerRpc]
-    private void TakeDamageServerRpc(float damage)
+    private void TakeDamageServerRpc(float damage, ServerRpcParams svrParams = default)
     {
         currentHp.Value -= damage;
-        if(currentHp.Value <= 0)
+        if (currentHp.Value < 0 && OwnerClientId == svrParams.Receive.SenderClientId)
         {
             Debug.Log("Dead!");
-            Destroy(this.gameObject);
+            deaths.Value++;
         }
     }
 
@@ -72,5 +96,40 @@ public class MPPlayerAttributes : NetworkBehaviour
     private void PowerUpServerRpc(float damageBuff)
     {
         damageValue /= damageBuff;
+    }
+
+    [ServerRpc]
+    private void RespawnPlayerServerRpc()
+    {
+        //sent health to maximum
+        currentHp.Value = maxHp;
+    }
+
+    [ClientRpc]
+    private void ResetPlayerClientRpc()
+    {
+        //reset player position to spawn point
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
+        UnityEngine.Random.InitState((int)System.DateTime.Now.Ticks);
+        int index = UnityEngine.Random.Range(0, spawnPoints.Length);
+        GameObject currentPoint = spawnPoints[index];
+
+        GetComponent<CharacterController>().enabled = false;
+        transform.position = spawnPoints[index].transform.position;
+        GetComponent<CharacterController>().enabled = true;
+    }
+
+    [ServerRpc]
+    private void IncreaseKillCountServerRpc(ulong spawnPlayerId)
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject playerObj in players)
+        {
+            if (playerObj.GetComponent<NetworkObject>().OwnerClientId == spawnPlayerId)
+            {
+                playerObj.GetComponent<MPPlayerAttributes>().kills.Value++;
+            }
+        }
     }
 }
